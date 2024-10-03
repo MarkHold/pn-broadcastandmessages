@@ -1,0 +1,52 @@
+/* Container for the accordion tabs */
+.accordion-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allow wrapping if there are many items */
+}
+
+/* Individual accordion tabs */
+.accordion-tab {
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  margin-bottom: 10px; /* Add space between rows if wrapping occurs */
+  width: 200px;
+  font-family: Arial, sans-serif;
+  flex-shrink: 0;
+  background-color: #e6f3ff;
+}
+
+/* Header of each accordion tab */
+.accordion-header {
+  background-color: #d1e8ff;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Content of each accordion tab (hidden by default) */
+.accordion-content {
+  display: none;
+  padding: 10px;
+  background-color: #e6f3ff;
+  word-wrap: break-word; /* Allow long words to break and wrap */
+  overflow-wrap: break-word; /* Modern browsers */
+  hyphens: auto; /* Enable automatic hyphenation */
+}
+
+/* Styles when the accordion tab is active */
+.accordion-tab.active .accordion-content {
+  display: block;
+}
+
+.accordion-tab.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Ensure text doesn't overflow */
+.accordion-content p {
+  margin: 0;
+  max-width: 100%; /* Ensure text doesn't exceed container width */
+}

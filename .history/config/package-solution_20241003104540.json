@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "dustythecat-client-side-solution",
+    "id": "af781849-f34d-4202-b8cb-4cbab472bc0e",
+    "version": "1.0.0.1",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Dustythecat description"
+      },
+      "longDescription": {
+        "default": "Dustythecat description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "dustythecat Feature",
+        "description": "The feature that activates elements of the dustythecat solution.",
+        "id": "0ef0546e-c5eb-4326-a88b-a273a2312f27",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/dustythecat.sppkg"
+  }
+}
