@@ -15,6 +15,8 @@
   background-color: #e6f3ff;
   display: flex;
   flex-direction: column;
+  border-radius: 10px; /* Add rounded corners */
+  overflow: hidden; /* Prevent content overflow from affecting rounded corners */
 }
 
 /* Header of each accordion tab */
@@ -26,6 +28,12 @@
   justify-content: space-between;
   align-items: center;
   min-height: 40px; /* Minimum height for consistency */
+  border-top-left-radius: 10px; /* Match with accordion-tab */
+  border-top-right-radius: 10px; /* Match with accordion-tab */
+  min-height: 40px; /* Minimum height for consistency */
+  box-sizing: border-box; /* Ensures padding is included in height calculation */
+  width: 100%; /* Make sure it takes the full width */
+  flex-grow: 1; /* Allow the header to grow and fill available space */
 }
 
 /* New class for the title text */
@@ -35,6 +43,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1.5; /* Adjust line height for multi-line text */
+
 }
 
 /* Content of each accordion tab (hidden by default) */
@@ -46,6 +56,8 @@
   overflow-wrap: break-word;
   hyphens: auto;
   flex-grow: 1; /* Allow content to grow and fill space */
+  border-bottom-left-radius: 10px; /* Match with accordion-tab */
+  border-bottom-right-radius: 10px; /* Match with accordion-tab */
 }
 
 /* Styles when the accordion tab is active */

@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+#history stuff
+.history
+
 # Dependency directories
 node_modules
 
