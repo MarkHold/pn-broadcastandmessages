@@ -11,6 +11,7 @@ import { IReadonlyTheme } from "@microsoft/sp-component-base";
 import * as strings from "BroadcastandMessagesWebPartStrings";
 import BroadcastandMessages from "./components/BroadcastandMessages";
 import { IBroadcastandMessagesProps } from "./components/IBroadcastandMessagesProps";
+import { getCurrentUserGroups } from "./services/graph";
 
 export interface IBroadcastandMessagesWebPartProps {
   description: string;
@@ -34,7 +35,21 @@ export default class BroadcastandMessagesWebPart extends BaseClientSideWebPart<I
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
+  protected async onInit(): Promise<void> {
+    const msgraphclient = await this.context.msGraphClientFactory.getClient(
+      "3"
+    );
+
+    const data = await getCurrentUserGroups(msgraphclient);
+
+    const groups = data.value
+      .map((group) => {
+        return group.displayName.toLocaleLowerCase();
+      })
+      .sort();
+
+    console.log(groups);
+
     return this._getEnvironmentMessage().then((message) => {
       this._environmentMessage = message;
     });

@@ -10,6 +10,7 @@ export interface FAQListItem {
     EMail: string;
   };
   Description: string;
+  Targetgroup: string[] | undefined;
 }
 
 export const getFAQItems = async (sp: SPFI) => {
@@ -29,11 +30,21 @@ export const getFAQItems = async (sp: SPFI) => {
       "Author/Title",
       "Author/ID",
       "Author/EMail",
-      "Description"
+      "Description",
+      "Targetgroup"
     )
     .expand("Author")();
 
-  return items;
+  console.log(items);
+
+  return items.map((item) => {
+    return {
+      ...item,
+      Targetgroup: item.Targetgroup?.map((groupname) => {
+        return groupname.toLocaleLowerCase();
+      }),
+    };
+  });
 
   //console.log("FAQ items", items);
 };

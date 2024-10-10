@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getSP } from "../../../pnpjsConfig";
 import { FAQListItem, getFAQItems } from "../services/sp";
 import styles from "./BroadcastandMessages.module.scss";
+import { getCurrentUserGroups } from "../services/graph";
 
 const Faq = (props: IBroadcastandMessagesProps) => {
   let _sp: SPFI = getSP(props.context);
@@ -13,8 +14,15 @@ const Faq = (props: IBroadcastandMessagesProps) => {
   // const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
   useEffect(() => {
-    getFAQItems(_sp).then((value) => {
-      setFaqItems(value);
+    props.context.msGraphClientFactory.getClient("3").then(async (client) => {
+      const groups = await getCurrentUserGroups(client);
+      const faqItems = await getFAQItems(_sp);
+
+      //also map pn-sweden to pn-se group names, for all the groups
+      //filter out FAQItems that you shouldnt be able to see, based on graph thing
+
+      setFaqItems(faqItems);
+      console.log(groups);
     });
   }, []);
 
