@@ -1,14 +1,14 @@
 /* Container for the accordion tabs */
 .accordion-container {
   display: flex;
-  align-items: stretch; /* Changed to stretch to allow equal height */
+  align-items: stretch; /* Stretch items to have equal height */
   flex-wrap: wrap;
   gap: 10px; /* Use gap for consistent spacing */
 }
 
 /* Individual accordion tabs */
 .accordion-tab {
-  border: 1px solid #ccc;
+  border: none;
   width: calc(33.333% - 10px); /* Set to 33.333% for 3 columns, adjust as needed */
   min-width: 200px; /* Minimum width */
   font-family: Arial, sans-serif;
@@ -16,24 +16,43 @@
   display: flex;
   flex-direction: column;
   border-radius: 10px; /* Add rounded corners */
-  overflow: hidden; /* Prevent content overflow from affecting rounded corners */
+  overflow: hidden; /* Prevent content overflow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow */
+  transition: all 0.4s ease-in-out; /* Smooth transition for all properties */
+}
+
+/* Styles when the accordion tab is active */
+.accordion-tab.active {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow when active */
+  transform: translateY(-2px); /* Slight lift effect when active */
+}
+
+/* Styles for full-width expansion */
+.accordion-tab.fullWidth {
+  width: 100%; /* Expand to full width when active */
+  transition: width 0.4s ease-in-out; /* Smooth transition for width change */
 }
 
 /* Header of each accordion tab */
 .accordion-header {
-  background-color: #d1e8ff;
+  background-color: #ffffff; /* Set the background color to white */
   padding: 10px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 40px; /* Minimum height for consistency */
-  border-top-left-radius: 10px; /* Match with accordion-tab */
-  border-top-right-radius: 10px; /* Match with accordion-tab */
-  min-height: 40px; /* Minimum height for consistency */
+  flex-grow: 1; /* Stretch the header to take available space */
   box-sizing: border-box; /* Ensures padding is included in height calculation */
   width: 100%; /* Make sure it takes the full width */
-  flex-grow: 1; /* Allow the header to grow and fill available space */
+  z-index: 1; /* Keep the header above the content */
+  border-top-left-radius: 10px; /* Match with accordion-tab */
+  border-top-right-radius: 10px; /* Match with accordion-tab */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for the accordion header */
+.accordion-header:hover {
+  background-color: #8EDDF9; /* Change to the specified color on hover */
 }
 
 /* New class for the title text */
@@ -44,36 +63,28 @@
   align-items: center;
   justify-content: center;
   line-height: 1.5; /* Adjust line height for multi-line text */
-
 }
 
-/* Content of each accordion tab (hidden by default) */
+/* Content of each accordion tab */
 .accordion-content {
-  display: none;
+  background-color: #ffffff;
   padding: 10px;
-  background-color: #e6f3ff;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
   flex-grow: 1; /* Allow content to grow and fill space */
-  border-bottom-left-radius: 10px; /* Match with accordion-tab */
-  border-bottom-right-radius: 10px; /* Match with accordion-tab */
+  max-height: 0; /* Initially collapsed */
+  overflow: hidden; /* Hide any overflowing content */
+  transition: max-height 1s ease-in-out; /* Slow down the animation */
+  z-index: 0; /* Ensure content is below the header */
+  position: relative;
 }
 
-/* Styles when the accordion tab is active */
+/* When accordion is active, expand the content */
 .accordion-tab.active .accordion-content {
-  display: block;
+  max-height: 800px; /* Increase the max-height for a slower expansion */
 }
 
-.accordion-tab.active .accordion-icon {
-  transform: rotate(180deg);
-}
-
-/* Ensure text doesn't overflow */
-.accordion-content p {
-  margin: 0;
-  max-width: 100%;
-}
 
 /* Icon styles */
 .accordion-icon {

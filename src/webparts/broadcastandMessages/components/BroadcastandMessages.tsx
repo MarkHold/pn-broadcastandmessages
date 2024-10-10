@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { IBroadcastandMessagesProps } from "./IBroadcastandMessagesProps";
 import { SPFI } from "@pnp/sp";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { getSP } from "../../../pnpjsConfig";
 import { FAQListItem, getFAQItems } from "../services/sp";
 import styles from "./BroadcastandMessages.module.scss";
@@ -11,71 +11,97 @@ const Faq = (props: IBroadcastandMessagesProps) => {
   let _sp: SPFI = getSP(props.context);
 
   const [faqItems, setFaqItems] = React.useState<FAQListItem[]>([]);
-  // const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+  const [openIndex, setOpenIndex] = React.useState<number | null>(null); // Track the open accordion index
 
   useEffect(() => {
     props.context.msGraphClientFactory.getClient("3").then(async (client) => {
       const groups = await getCurrentUserGroups(client);
       const faqItems = await getFAQItems(_sp);
 
-      //also map pn-sweden to pn-se group names, for all the groups
-      //filter out FAQItems that you shouldnt be able to see, based on graph thing
-
       setFaqItems(faqItems);
       console.log(groups);
     });
   }, []);
 
-  // const toggleItem = (index: number) => {
-  // setOpenIndex(openIndex === index ? null : index);
-  // };
+  const toggleAccordion = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index); // Toggle between opening and closing
+  };
 
   return (
     <div className={styles["accordion-container"]}>
-      {faqItems.map((faqItem, index) => (
-        <FaqItem faqItem={faqItem} key={index} />
-        // <div
-        //   key={index}
-        //   className={`${styles["accordion-tab"]} ${
-        //     openIndex === index ? styles.active : ""
-        //   }`}
-        // >
-        //   <div
-        //     className={styles["accordion-header"]}
-        //     onClick={() => toggleItem(index)}
-        //   >
-        //     <span>{faqItem.Title}</span>
-        //     <span className={styles["accordion-icon"]}>
-        //       {openIndex === index ? "▲" : "▼"}
-        //     </span>
-        //   </div>
-        //   <div className={styles["accordion-content"]}>
-        //     <p>{faqItem.Body}</p>
-        //   </div>
-        // </div>
-      ))}
+      {/* Render the expanded accordion at the top if there is one */}
+      {openIndex !== null && (
+        <FaqItem
+          faqItem={faqItems[openIndex]}
+          key={openIndex}
+          isOpen={true}
+          onClick={() => toggleAccordion(openIndex)}
+          isFullWidth={true}
+        />
+      )}
+
+      {/* Render the rest of the accordions, except the expanded one */}
+      {faqItems.map((faqItem, index) => {
+        if (index === openIndex) return null; // Skip the expanded item here
+        return (
+          <FaqItem
+            faqItem={faqItem}
+            key={index}
+            isOpen={false}
+            onClick={() => toggleAccordion(index)}
+            isFullWidth={false}
+          />
+        );
+      })}
     </div>
   );
 };
 
-const FaqItem = (props: { faqItem: FAQListItem }) => {
-  const { faqItem } = props;
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+const FaqItem = (props: {
+  faqItem: FAQListItem;
+  isOpen: boolean;
+  onClick: () => void;
+  isFullWidth: boolean;
+}) => {
+  const { faqItem, isOpen, onClick, isFullWidth } = props;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      if (isOpen) {
+        // Expand the content
+        contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+      } else {
+        // Collapse the content
+        contentRef.current.style.height = "0px";
+      }
+    }
+  }, [isOpen]);
 
   return (
     <div
-      className={`${styles["accordion-tab"]} ${isOpen ? styles.active : ""}`}
+      className={`${styles["accordion-tab"]} ${
+        isFullWidth ? styles.fullWidth : ""
+      } ${isOpen ? styles.active : ""}`}
     >
-      <div
-        className={styles["accordion-header"]}
-        onClick={() => setIsOpen(!isOpen)}
-      >
+      <div className={styles["accordion-header"]} onClick={onClick}>
         <span className={styles["accordion-title"]}>{faqItem.Title}</span>
-        <span className={styles["accordion-icon"]}>{isOpen ? "▲" : "▼"}</span>
+        <span className={styles["accordion-icon"]}>{isOpen ? "^" : "v"}</span>
       </div>
-      <div className={styles["accordion-content"]}>
+      <div
+        ref={contentRef}
+        className={styles["accordion-content"]}
+        style={{
+          height: "0px",
+          overflow: "hidden",
+          transition: "height 0.5s ease-in-out",
+        }}
+      >
         <p>{faqItem.Description}</p>
-        <p>{faqItem.Author.EMail}</p>
+        <p>
+          <strong style={{ fontSize: "1.1em" }}>{"Contact Person: "}</strong>
+          {faqItem.Author.EMail}
+        </p>
       </div>
     </div>
   );
