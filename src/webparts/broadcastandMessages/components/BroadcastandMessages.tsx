@@ -19,7 +19,27 @@ const Faq = (props: IBroadcastandMessagesProps) => {
       const faqItems = await getFAQItems(_sp);
 
       setFaqItems(faqItems);
-      console.log(groups);
+      // console.log(groups);
+
+      const groupMapping = new Map<string, string>([
+        ["pn-se-sharepoint", "Postnord Sweden"],
+        ["pn-no-sharepoint", "Postnord Norway"],
+        ["pn-dk-sharepoint", "Postnord Denmark"],
+        ["pn-fi-sharepoint", "Postnord Finland"],
+        ["pn-sf-sharepoint", "Postnord Stral Fors"],
+        ["pn-gr-sharepoint", "Postnord Group Function"],
+        ["pn-global-sharepoint", "All Employees at Postnord"],
+      ]);
+
+      const importantGroups = groups.value
+        .filter((group) => {
+          return groupMapping.has(group.displayName.toLocaleLowerCase());
+        })
+        .map((group) => {
+          return groupMapping.get(group.displayName.toLocaleLowerCase());
+        });
+
+      console.log("important stuff: ", importantGroups);
 
       /*
         ok so for groups, I will start with the AD group then whats gonna be in SharePoint:

@@ -78,6 +78,7 @@
   transition: max-height 1s ease-in-out; /* Slow down the animation */
   z-index: 0; /* Ensure content is below the header */
   position: relative;
+  white-space: pre-wrap;
 }
 
 /* When accordion is active, expand the content */
