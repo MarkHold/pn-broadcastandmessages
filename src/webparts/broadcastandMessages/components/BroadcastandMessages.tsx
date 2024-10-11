@@ -20,6 +20,25 @@ const Faq = (props: IBroadcastandMessagesProps) => {
 
       setFaqItems(faqItems);
       console.log(groups);
+
+      /*
+        ok so for groups, I will start with the AD group then whats gonna be in SharePoint:
+
+        PN-SE-SharePoint      :       Postnord Sweden
+
+        PN-NO-SharePoint              Postnord Norway
+
+        PN-DK-SharePoint              Postnord Denmark
+
+        PN-FI-SharePoint              Postnord Finland
+
+        PN-SF-SharePoint              Postnord Stral Fors
+
+        PN-GR-SharePoint              Postnord Group Function
+
+        PN-GLOBAL-SharePoint          All Employees at Postnord
+
+      */
     });
   }, []);
 
@@ -86,7 +105,7 @@ const FaqItem = (props: {
     >
       <div className={styles["accordion-header"]} onClick={onClick}>
         <span className={styles["accordion-title"]}>{faqItem.Title}</span>
-        <span className={styles["accordion-icon"]}>{isOpen ? "^" : "v"}</span>
+        <span className={styles["accordion-icon"]}>{isOpen ? "▲" : "▼"}</span>
       </div>
       <div
         ref={contentRef}
