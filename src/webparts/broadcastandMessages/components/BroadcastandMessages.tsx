@@ -139,7 +139,7 @@ const FaqItem = (props: {
         <p>{faqItem.Description}</p>
         <p>
           <strong style={{ fontSize: "1.1em" }}>{"Contact Person: "}</strong>
-          {faqItem.Author.EMail}
+          {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
         </p>
       </div>
     </div>

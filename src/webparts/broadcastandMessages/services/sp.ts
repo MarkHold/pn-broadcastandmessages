@@ -4,11 +4,12 @@ import { Web } from "@pnp/sp/webs";
 export interface FAQListItem {
   Title: string;
   Category: string;
-  Author: {
+  Additional_x0020_Contact_x0028_s: {
     Title: string;
     ID: string;
     EMail: string;
   };
+  To_x0020_Date: string;
   Description: string;
   Targetgroup: string[] | undefined;
 }
@@ -27,13 +28,13 @@ export const getFAQItems = async (sp: SPFI) => {
       "ID",
       "Title",
       "Category",
-      "Author/Title",
-      "Author/ID",
-      "Author/EMail",
       "Description",
-      "Targetgroup"
+      "Targetgroup",
+      "Additional_x0020_Contact_x0028_s",
+      "Additional_x0020_Contact_x0028_s/EMail",
+      "To_x0020_Date"
     )
-    .expand("Author")();
+    .expand("Additional_x0020_Contact_x0028_s")();
 
   console.log(items);
 
