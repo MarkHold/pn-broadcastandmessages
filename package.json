@@ -1,5 +1,5 @@
 {
-  "name": "dustythecat",
+  "name": "broadcastmessagesandchanges",
   "version": "0.0.1",
   "private": true,
   "engines": {
@@ -7,7 +7,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "build": "gulp bundle",
+    "build": "gulp bundle --ship",
+    "package": "gulp package-solution --ship",
     "clean": "gulp clean",
     "test": "gulp test"
   },

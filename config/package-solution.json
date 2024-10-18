@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "dustythecat-client-side-solution",
+    "name": "pn-broadcastmessagesandchanges",
     "id": "af781849-f34d-4202-b8cb-4cbab472bc0e",
-    "version": "1.0.0.2",
+    "version": "1.0.0.3",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -16,10 +16,10 @@
     },
     "metadata": {
       "shortDescription": {
-        "default": "Dustythecat description"
+        "default": "broadcastmessagesandchanges description"
       },
       "longDescription": {
-        "default": "Dustythecat description"
+        "default": "broadcastmessagesandchanges description"
       },
       "screenshotPaths": [],
       "videoUrl": "",
@@ -27,14 +27,14 @@
     },
     "features": [
       {
-        "title": "dustythecat Feature",
-        "description": "The feature that activates elements of the dustythecat solution.",
+        "title": "pn-broadcastmessagesandchanges feature",
+        "description": "The feature that activates elements of the broadcastandmessages solution.",
         "id": "0ef0546e-c5eb-4326-a88b-a273a2312f27",
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/dustythecat.sppkg"
+    "zippedPackage": "solution/pn-broadcastandmessages.sppkg"
   }
 }
