@@ -6,6 +6,7 @@ import { getSP } from "../../../pnpjsConfig";
 import { FAQListItem, getFAQItems } from "../services/sp";
 import styles from "./BroadcastandMessages.module.scss";
 import { getCurrentUserGroups } from "../services/graph";
+import { FontIcon } from "@fluentui/react/lib/Icon";
 
 const Faq = (props: IBroadcastandMessagesProps) => {
   let _sp: SPFI = getSP(props.context);
@@ -125,7 +126,12 @@ const FaqItem = (props: {
     >
       <div className={styles["accordion-header"]} onClick={onClick}>
         <span className={styles["accordion-title"]}>{faqItem.Title}</span>
-        <span className={styles["accordion-icon"]}>{isOpen ? "▲" : "▼"}</span>
+        <span className={styles["accordion-icon"]}>
+          <FontIcon
+            aria-label="Compass"
+            iconName={isOpen ? "ChevronUpMed" : "ChevronDownMed"}
+          />
+        </span>
       </div>
       <div
         ref={contentRef}
@@ -136,11 +142,14 @@ const FaqItem = (props: {
           transition: "height 0.5s ease-in-out",
         }}
       >
-        <p>{faqItem.Description}</p>
-        <p>
-          <strong style={{ fontSize: "1.1em" }}>{"Contact Person: "}</strong>
-          {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
-        </p>
+        {faqItem.Description ? <p>{faqItem.Description}</p> : undefined}
+
+        {faqItem.Additional_x0020_Contact_x0028_s?.EMail ? (
+          <p>
+            <strong style={{ fontSize: "1.1em" }}>{"Contact Person: "}</strong>
+            {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
+          </p>
+        ) : undefined}
       </div>
     </div>
   );
