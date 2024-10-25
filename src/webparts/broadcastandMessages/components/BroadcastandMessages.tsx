@@ -137,8 +137,8 @@ const FaqItem = (props: {
         ref={contentRef}
         className={styles["accordion-content"]}
         style={{
-          height: isOpen ? `${contentRef.current?.scrollHeight}px` : "0px",
-          overflow: isOpen ? "visible" : "hidden",
+          height: "0px",
+          overflow: "hidden",
           transition: "height 0.5s ease-in-out",
         }}
       >

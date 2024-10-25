@@ -12,7 +12,6 @@
   width: calc(33.333% - 10px); /* Set to 33.333% for 3 columns, adjust as needed */
   min-width: 200px; /* Minimum width */
   font-family: Arial, sans-serif;
-  background-color: #e6f3ff;
   display: flex;
   flex-direction: column;
   border-radius: 10px; /* Add rounded corners */
@@ -33,23 +32,20 @@
   transition: width 0.4s ease-in-out; /* Smooth transition for width change */
 }
 
-/* Header of each accordion tab */
 .accordion-header {
-  background-color: #ffffff;
-  padding: 5px 10px; /* Reduce padding for a shorter height */
+  background-color: #ffffff; /* Set the background color to white */
+  padding: 10px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  transition: background-color 0.3s ease-in-out;
-  overflow: hidden; /* Ensure no content spills out */
-  height: auto; /* Set height to auto to avoid overflow issues */
-  min-height: 40px; /* Ensure a consistent minimum height */
+  flex-grow: 1; /* Stretch the header to take available space */
+  box-sizing: border-box; /* Ensures padding is included in height calculation */
+  width: 100%; /* Make sure it takes the full width */
+  z-index: 1; /* Keep the header above the content */
+  border-top-left-radius: 10px; /* Match with accordion-tab */
+  border-top-right-radius: 10px; /* Match with accordion-tab */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition for hover effect */
 }
 
 /* Hover effect for the accordion header */
