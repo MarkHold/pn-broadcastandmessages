@@ -2,6 +2,7 @@ import { SPFI } from "@pnp/sp";
 import { Web } from "@pnp/sp/webs";
 
 export interface FAQListItem {
+  ID: string;
   Title: string;
   Category: string;
   Additional_x0020_Contact_x0028_s: {
@@ -9,6 +10,7 @@ export interface FAQListItem {
     ID: string;
     EMail: string;
   };
+  Listplace: string;
   To_x0020_Date: string;
   From_x0020_Date: string;
   Description: string;
@@ -25,11 +27,10 @@ export const getFAQItems = async (sp: SPFI) => {
 
   const now = new Date().toISOString();
 
+  //Hello
   const items: FAQListItem[] = await web.lists
     .getByTitle(ListName)
-    .items.filter(
-      `To_x0020_Date ge datetime'${now}' and From_x0020_Date le datetime'${now}'`
-    )
+    .items.filter(`To_x0020_Date ge datetime'${now}' and Listplace eq 'Open'`)
     .select(
       "ID",
       "Title",
@@ -39,7 +40,8 @@ export const getFAQItems = async (sp: SPFI) => {
       "Additional_x0020_Contact_x0028_s",
       "Additional_x0020_Contact_x0028_s/EMail",
       "To_x0020_Date",
-      "From_x0020_Date"
+      "From_x0020_Date",
+      "Listplace"
     )
     .expand("Additional_x0020_Contact_x0028_s")();
 

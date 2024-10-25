@@ -35,19 +35,21 @@
 
 /* Header of each accordion tab */
 .accordion-header {
-  background-color: #ffffff; /* Set the background color to white */
-  padding: 10px;
+  background-color: #ffffff;
+  padding: 5px 10px; /* Reduce padding for a shorter height */
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 1; /* Stretch the header to take available space */
-  box-sizing: border-box; /* Ensures padding is included in height calculation */
-  width: 100%; /* Make sure it takes the full width */
-  z-index: 1; /* Keep the header above the content */
-  border-top-left-radius: 10px; /* Match with accordion-tab */
-  border-top-right-radius: 10px; /* Match with accordion-tab */
-  transition: background-color 0.3s ease-in-out; /* Smooth transition for hover effect */
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+  overflow: hidden; /* Ensure no content spills out */
+  height: auto; /* Set height to auto to avoid overflow issues */
+  min-height: 40px; /* Ensure a consistent minimum height */
 }
 
 /* Hover effect for the accordion header */
@@ -63,32 +65,52 @@
   align-items: center;
   justify-content: center;
   line-height: 1.5; /* Adjust line height for multi-line text */
+  padding: 10px 15px; /* Add padding around the title */
 }
+
 
 /* Content of each accordion tab */
 .accordion-content {
   background-color: #ffffff;
-  padding: 10px;
+  padding: 0 30px; /* Padding only on left and right initially */
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-  flex-grow: 1; /* Allow content to grow and fill space */
-  max-height: 0; /* Initially collapsed */
-  overflow: hidden; /* Hide any overflowing content */
-  transition: max-height 1s ease-in-out; /* Slow down the animation */
-  z-index: 0; /* Ensure content is below the header */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease-in-out, padding 0.4s ease-in-out;
   position: relative;
   white-space: pre-wrap;
 }
 
-/* When accordion is active, expand the content */
 .accordion-tab.active .accordion-content {
-  max-height: 800px; /* Increase the max-height for a slower expansion */
+  max-height: 800px;
+  padding: 30px; /* Ensures padding is fully applied when expanded */
 }
-
-
 /* Icon styles */
 .accordion-icon {
   flex-shrink: 0; /* Prevent icon from shrinking */
   margin-left: 10px; /* Space between title and icon */
 }
+
+.accordion-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* Add some space between this and previous content */
+}
+
+.accordion-row p {
+  margin: 0; /* Remove default margin from paragraph */
+  flex-grow: 1; /* Make the paragraph take available space */
+}
+
+.accordion-row a {
+  margin-left: 10px; /* Space between email/category and the link */
+  padding-right: 20px; /* Add padding to the right to prevent it sticking to the wall */
+  text-decoration: none; /* Optional: Remove default underline */
+  color: #0078d4; /* Optional: Change link color */
+}
+
+
+

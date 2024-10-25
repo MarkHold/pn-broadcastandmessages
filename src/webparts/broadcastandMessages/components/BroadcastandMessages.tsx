@@ -125,7 +125,7 @@ const FaqItem = (props: {
       } ${isOpen ? styles.active : ""}`}
     >
       <div className={styles["accordion-header"]} onClick={onClick}>
-        <span className={styles["accordion-title"]}>{faqItem.Title}</span>
+        <strong className={styles["accordion-title"]}>{faqItem.Title}</strong>
         <span className={styles["accordion-icon"]}>
           <FontIcon
             aria-label="Compass"
@@ -137,19 +137,30 @@ const FaqItem = (props: {
         ref={contentRef}
         className={styles["accordion-content"]}
         style={{
-          height: "0px",
-          overflow: "hidden",
+          height: isOpen ? `${contentRef.current?.scrollHeight}px` : "0px",
+          overflow: isOpen ? "visible" : "hidden",
           transition: "height 0.5s ease-in-out",
         }}
       >
         {faqItem.Description ? <p>{faqItem.Description}</p> : undefined}
 
-        {faqItem.Additional_x0020_Contact_x0028_s?.EMail ? (
-          <p>
-            <strong style={{ fontSize: "1.1em" }}>{"Contact Person: "}</strong>
-            {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
-          </p>
-        ) : undefined}
+        <div className={styles["accordion-row"]}>
+          {faqItem.Additional_x0020_Contact_x0028_s?.EMail ? (
+            <p>
+              <strong style={{ fontSize: "1.1em" }}>
+                {"Contact Person: "}
+              </strong>
+              {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
+            </p>
+          ) : undefined}
+          <a
+            href={`https://postnord.sharepoint.com/sites/pn-broadcast/Lists/NSDTasks/DispForm.aspx?ID=${faqItem.ID}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read more
+          </a>
+        </div>
       </div>
     </div>
   );
