@@ -5,12 +5,14 @@ export interface FAQListItem {
   ID: string;
   Title: string;
   Category: string;
-  Additional_x0020_Contact_x0028_s: {
+  // change to Additional_x0020_Contact_x0028_s when publishing
+  Additional_x0020_Contact: {
     Title: string;
     ID: string;
     EMail: string;
   };
   Listplace: string;
+  ITSM_x0020_number: string;
   To_x0020_Date: string;
   From_x0020_Date: string;
   Description: string;
@@ -18,7 +20,7 @@ export interface FAQListItem {
 }
 
 const SiteURL = "https://postnord.sharepoint.com/sites/pn-broadcast";
-const ListName = "NSDTasks";
+const ListName = "NSDTasksTest";
 
 export const getFAQItems = async (sp: SPFI) => {
   //console.log("context", sp);
@@ -26,6 +28,18 @@ export const getFAQItems = async (sp: SPFI) => {
   const web = Web([sp.web, SiteURL]);
 
   const now = new Date().toISOString();
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1); // Add leading zero if needed
+    const day = (date.getDate() < 10 ? "0" : "") + date.getDate(); // Add leading zero if needed
+    const hours = (date.getHours() < 10 ? "0" : "") + date.getHours(); // Add leading zero if needed
+    const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes(); // Add leading zero if needed
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  };
 
   //Hello
   const items: FAQListItem[] = await web.lists
@@ -37,19 +51,25 @@ export const getFAQItems = async (sp: SPFI) => {
       "Category",
       "Description",
       "Targetgroup",
-      "Additional_x0020_Contact_x0028_s",
-      "Additional_x0020_Contact_x0028_s/EMail",
+      //change here to _Contact_x0028_s
+      "Additional_x0020_Contact",
+      //change here to _Contact_x0028_s/EMail
+      "Additional_x0020_Contact/EMail",
+      "ITSM_x0020_number",
       "To_x0020_Date",
       "From_x0020_Date",
       "Listplace"
     )
-    .expand("Additional_x0020_Contact_x0028_s")();
+    //change here to _Contact_x0028_s
+    .expand("Additional_x0020_Contact")();
 
   console.log(items);
 
   return items.map((item) => {
     return {
       ...item,
+      From_x0020_Date: formatDate(item.From_x0020_Date),
+      To_x0020_Date: formatDate(item.To_x0020_Date),
       Targetgroup: item.Targetgroup?.map((groupname) => {
         return groupname.toLocaleLowerCase();
       }),

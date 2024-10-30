@@ -62,6 +62,7 @@
   justify-content: center;
   line-height: 1.5; /* Adjust line height for multi-line text */
   padding: 10px 15px; /* Add padding around the title */
+  font-size: 1em;
 }
 
 
@@ -108,5 +109,36 @@
   color: #0078d4; /* Optional: Change link color */
 }
 
+/* Center the dates under the title, even when collapsed */
+.accordion-dates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  color: #666666; /* Lighter color for dates */
+  margin-top: 5px; /* Space between title and dates */
+  width: 100%; /* Ensures it takes the full width of the container */
+  text-align: center; /* Centers text within the full width */
+}
 
 
+/* Add some margin to separate the dates and dash */
+.accordion-dates span {
+  margin: 0 5px; /* Adds space on both sides of the dash */
+}
+
+
+/* Container to stack title and dates vertically */
+.accordion-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center title and dates */
+  width: 100%; /* Ensure it takes the full width */
+}
+
+/* Dates container under the title */
+.accordion-dates {
+  font-size: 0.9em; /* Adjust font size if needed */
+  color: #666666; /* Optional: lighter color for dates */
+  margin-top: 3px; /* Space between title and dates */
+}

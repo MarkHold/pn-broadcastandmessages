@@ -125,7 +125,13 @@ const FaqItem = (props: {
       } ${isOpen ? styles.active : ""}`}
     >
       <div className={styles["accordion-header"]} onClick={onClick}>
-        <strong className={styles["accordion-title"]}>{faqItem.Title}</strong>
+        <div className={styles["accordion-title-container"]}>
+          <strong className={styles["accordion-title"]}>{faqItem.Title}</strong>
+          <div className={styles["accordion-dates"]}>
+            <span>{faqItem.From_x0020_Date}</span> -{" "}
+            <span>{faqItem.To_x0020_Date}</span>
+          </div>
+        </div>
         <span className={styles["accordion-icon"]}>
           <FontIcon
             aria-label="Compass"
@@ -145,12 +151,18 @@ const FaqItem = (props: {
         {faqItem.Description ? <p>{faqItem.Description}</p> : undefined}
 
         <div className={styles["accordion-row"]}>
-          {faqItem.Additional_x0020_Contact_x0028_s?.EMail ? (
+          {faqItem.Additional_x0020_Contact?.EMail ? (
             <p>
               <strong style={{ fontSize: "1.1em" }}>
                 {"Contact Person: "}
               </strong>
-              {faqItem.Additional_x0020_Contact_x0028_s?.EMail}
+              {faqItem.Additional_x0020_Contact?.EMail}
+            </p>
+          ) : undefined}
+
+          {faqItem.ITSM_x0020_number ? (
+            <p>
+              {"ITSM Number: "} {faqItem.ITSM_x0020_number}
             </p>
           ) : undefined}
           <a
